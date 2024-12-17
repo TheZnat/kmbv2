@@ -44,19 +44,13 @@ const Welcome: React.FC = () => {
 
     // Добавляем пользователя в комнату
     if (socket) {
-      socket.emit("user:add", { name }, (res: any) => {
-        if (res?.error) {
-          setError(`Ошибка: ${res.error || "Неизвестная ошибка"}`);
+      socket.emit("user:add", { name }, (err: any, res: any) => {
+        if (res.status === "error") {
+          setError(`${res.message}`);
           return;
-        }
-
-        if (res?.message) {
-          setResponse(res.message);
-
+        } else {
           localStorage.setItem("isAuthenticated", "true");
           navigate("/room");
-        } else {
-          setError("Некорректный ответ от сервера при добавлении пользователя");
         }
       });
     }
