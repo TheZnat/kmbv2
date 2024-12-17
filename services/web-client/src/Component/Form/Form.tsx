@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import catItem from "../../assets/cat/Property 1=cat.svg";
 import styles from "./Form.module.scss";
 import ButtonLogin from "../ButtonLogin/ButtonLogin";
+import { ButtonAppearence } from "../ButtonLogin/ButtonLogin.props";
 
 interface FormValues {
   name: string;
@@ -60,7 +61,7 @@ const Form: React.FC<FormProps> = ({ onSubmit, disabled }) => {
         {error && <label className={styles.errorText}>{error}</label>}
         <ButtonLogin
           className={styles.formButton}
-          appearence="join"
+          appearence={ButtonAppearence.Join}
           type="button"
           onClick={handlerClick}
           disabled={disabled}

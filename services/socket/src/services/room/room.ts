@@ -1,36 +1,46 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
-export const checkRoom = async () => {
+// Тип для ответа
+interface IResult {
+    message: string;
+}
+
+export const checkRoom = async (): Promise<IResult> => {
     const filePath = path.join(__dirname, "../../../bd/bd.json");
 
     try {
-        // Проверяем, существует ли файл
-        if (!fs.existsSync(filePath)) {
-            // Если файла нет, создаем его с пустым массивом участников
-            fs.writeFileSync(
-                filePath,
-                JSON.stringify({ participants: [] }, null, 2)
-            );
+        let fileData: string;
+        // Пробуем прочитать файл
+        try {
+            fileData = await fs.readFile(filePath, "utf-8");
+        } catch (err) {
+            if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+                // Если файла нет, создаем его
+                const initialData = { participants: [] };
+                await fs.writeFile(
+                    filePath,
+                    JSON.stringify(initialData, null, 2)
+                );
+                fileData = JSON.stringify(initialData);
+            } else {
+                throw err; // Пробрасываем другие ошибки
+            }
         }
 
-        // Читаем данные из файла
-        const fileData = fs.readFileSync(filePath, "utf-8");
+        // Парсим данные из файла
         const data = JSON.parse(fileData);
+        const participants = data.participants || [];
 
-        const participants: { name: string; id: string }[] =
-            data.participants || [];
+        // Проверяем, если комната полна
+        if (participants.length >= 4) {
+            return { message: "Room is full" };
+        }
 
-        // Проверяем, меньше ли 4 участников
-        const isRoomNotFull = participants.length < 4;
-
-        return {
-            message: isRoomNotFull, // true, если участников меньше 4
-        };
+        // Если комната не полна
+        return { message: "Room is available" };
     } catch (error) {
         console.error("Error while checking room:", error);
-        return {
-            message: false, // Если произошла ошибка, считаем, что комната заполнена
-        };
+        return { message: "Error while checking room" }; // Сообщение об ошибке
     }
 };

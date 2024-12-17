@@ -1,7 +1,13 @@
 import { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 
-export interface ButtonLoginProps extends ButtonHTMLAttributes<HTMLButtonElement>{
-    children: ReactNode;
-    appearence: "join" | "back";
-    onClick?: MouseEventHandler<HTMLButtonElement>; 
+export enum ButtonAppearence {
+  Join = "join",
+  Back = "back",
+}
+
+export interface ButtonLoginProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  appearence: ButtonAppearence;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }

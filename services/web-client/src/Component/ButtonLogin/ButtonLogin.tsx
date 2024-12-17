@@ -1,11 +1,11 @@
 import React from "react";
 import cn from "classnames";
-import { ButtonLoginProps } from "./ButtonLogin.props";
+import { ButtonLoginProps, ButtonAppearence } from "./ButtonLogin.props"; // Убедитесь, что ButtonAppearence импортирован
 import styles from "./ButtonLogin.module.scss";
 
 const ButtonLogin: React.FC<ButtonLoginProps> = ({
   children,
-  appearence = "join",
+  appearence = ButtonAppearence.Join, // Используем enum
   className,
   onClick,
   ...props
@@ -13,8 +13,8 @@ const ButtonLogin: React.FC<ButtonLoginProps> = ({
   return (
     <button
       className={cn(styles.bth, className, {
-        [styles.join]: appearence === "join",
-        [styles.back]: appearence === "back",
+        [styles.join]: appearence === ButtonAppearence.Join, // Проверка на enum
+        [styles.back]: appearence === ButtonAppearence.Back, // Проверка на enum
       })}
       onClick={onClick}
       {...props}
