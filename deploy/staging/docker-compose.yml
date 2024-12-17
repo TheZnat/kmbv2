@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  web-client:
+    build:
+      context: ../../services
+      dockerfile: web-client/Dockerfile
+    restart: always
+    ports:
+      - "%host-port%:%process-port%"
+
+  socket:
+    build:
+      context: ../../services
+      dockerfile: socket/Dockerfile
+    restart: always
+    volumes:
+      - "../../services/socket:/app"
+    ports:
+      - "%host-port%:%process-port%"

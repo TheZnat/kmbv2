@@ -1,0 +1,81 @@
+.container {
+  width: 412px;
+  height: 440px;
+  background-color: var(--Primary-Gray-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+
+.imgCat {
+  width: 224px;
+  height: 170px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  width: 332px;
+  height: 178px;
+}
+
+.formText {
+  font-family: "Roboto Flex";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 30px;
+}
+
+.formInput, .formButton{
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.formButton {
+  min-height: 52px
+}
+
+.formInput {
+  height: 52px;
+  padding: 12px;
+  border-radius: 11px;
+  background-color: var(--Primary-Gray);
+  border: none;
+  outline: none; 
+  color: white;
+}
+
+
+.errorText {
+  color: #FF4E4E;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 18px;
+  align-self: flex-start; 
+  margin-top: -11px;
+  animation: fadeIn 0.7s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; 
+  }
+  100% {
+    opacity: 1; 
+  }
+}
+
+
+
+
+
+

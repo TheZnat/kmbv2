@@ -1,0 +1,35 @@
+
+
+.bth{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 452;
+    line-height: 24px;
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+.join{
+    background-color: var(--Primary-Blue);
+    color: var(--Primary-White);
+
+}
+
+.join:hover{
+    background-color: var(--Primary-Blue-more);
+}
+
+.back{
+    background-color: var(--Primary-White);
+    color: var(--Primary-Black);
+}
+
+
+.back:hover{
+    background-color: var(--overlay-white-75);
+}
