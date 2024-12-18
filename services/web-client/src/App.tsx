@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import Welcome from "./Page/Welcome";
-import Room from "./Page/Room";
+import Room from "./Page/Room/Room";
 import PrivateRoute from "./Component/PrivateRoute/PrivateRoute";
 import { SocketProvider } from "./Component/SocketContext/SocketContext";
 
