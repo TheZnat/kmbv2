@@ -5,7 +5,6 @@ interface IParticipant {
     name: string;
     id: string;
 }
-
 interface IResult {
     message: string | IParticipant[] | object;
     status: string;
@@ -16,9 +15,8 @@ export const userGet = async (): Promise<IResult> => {
         const filePath = path.join(__dirname, "../../../bd/bd.json");
         const fileData = await fs.readFile(filePath, "utf-8");
         const data = JSON.parse(fileData);
-
         return {
-            message: data.participants, 
+            message: data.participants,
             status: "success",
         };
     } catch (e: any) {

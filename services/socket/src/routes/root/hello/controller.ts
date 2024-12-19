@@ -3,11 +3,10 @@ import { world as worldService } from "../../../services/hello/world";
 
 export const world: IRouteFn = async (socket, data) => {
     try {
-        // Вызываем сервис для обработки логики
         const result = await worldService({ name: data.name });
-        return result; // Возвращаем сообщение клиенту
+        return result;
     } catch (error) {
-        console.error("Error in world controller:", error);
-        throw error; // Отправляем ошибку клиенту
+        console.log("Error in world:", error);
+        throw error; // отправляем ошибку клиенту 
     }
 };

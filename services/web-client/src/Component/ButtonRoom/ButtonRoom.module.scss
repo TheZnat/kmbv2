@@ -1,0 +1,28 @@
+.wrapper{
+    position: absolute;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%); 
+}
+
+.bthContainer{
+    display: flex;
+    gap: 16px;
+}
+
+.button{
+    display: flex;
+    width: 48px;
+    height: 48px;
+    padding: 9px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    background: var(--Primary-White);
+    cursor: pointer;
+}
+
+.exit{
+    background: var(--Secondary-Red, #FF4E4E)
+}
+

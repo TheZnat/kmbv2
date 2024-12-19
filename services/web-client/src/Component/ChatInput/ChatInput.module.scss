@@ -1,0 +1,34 @@
+.container {
+    border-radius: 11px;
+    background: var(--Primary-Gray-dark);
+    border: 1px solid var(--overlay-white-25); 
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 316px;
+    height: 50px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+}
+
+.input {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--Primary-White, #FFF);
+    width: calc(100% - 40px); 
+    background: var(--Primary-Gray-dark);
+    border: none;
+    outline: none;
+}
+
+.button {
+    border: none;
+    background: transparent;
+}
+
+.buttonIcon {
+    width: 34px;
+    height: 34px;
+}

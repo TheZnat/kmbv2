@@ -9,5 +9,5 @@ export const vars ={
     env: parseString(process.env.NODE_ENV, 'develop'),
     logs: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
     isLocal: parseBoolean(process.env.IS_LOCAL, false),
-    port: parseNumber(process.env.PORT, 3000),
+    port: parseNumber(process.env.PORT, 8081),
 };

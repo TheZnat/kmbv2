@@ -13,8 +13,8 @@ const ButtonLogin: React.FC<ButtonLoginProps> = ({
   return (
     <button
       className={cn(styles.bth, className, {
-        [styles.join]: appearence === ButtonAppearence.Join, // Проверка на enum
-        [styles.back]: appearence === ButtonAppearence.Back, // Проверка на enum
+        [styles.join]: appearence === ButtonAppearence.Join,
+        [styles.back]: appearence === ButtonAppearence.Back,
       })}
       onClick={onClick}
       {...props}

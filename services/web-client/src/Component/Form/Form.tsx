@@ -15,7 +15,7 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ onSubmit, disabled }) => {
   const [values, setValues] = useState<FormValues>({ name: "" });
-  const [error, setError] = useState<string | null>(null); // Управляем ошибкой внутри компонента
+  const [error, setError] = useState<string | null>(null); 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,19 +25,18 @@ const Form: React.FC<FormProps> = ({ onSubmit, disabled }) => {
     // Сбрасываем ошибку и меняем обводку на синий, если пользователь начал вводить текст
     setError(null);
     if (inputRef.current) {
-      inputRef.current.style.border = "1px solid #2C68FA"; // Синяя обводка
+      inputRef.current.style.border = "1px solid #2C68FA";
     }
   };
 
   const handlerClick = () => {
     if (!values.name.trim()) {
-      setError("*Please enter your name"); // Устанавливаем ошибку
+      setError("*Please enter your name"); 
       if (inputRef.current) {
-        inputRef.current.style.border = "1px solid #FF4D4F"; // Красная обводка
+        inputRef.current.style.border = "1px solid #FF4D4F";
       }
-      return; // Прерываем выполнение, если имя пустое
     } else {
-      onSubmit(values.name); // Если имя не пустое, вызываем onSubmit
+      onSubmit(values.name);
     }
   };
 

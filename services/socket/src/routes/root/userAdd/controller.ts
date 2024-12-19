@@ -1,5 +1,5 @@
 import { IRouteFn } from "../../../../types/socket";
-import { userAdd as userAddService } from "../../../services/user/allUsers";
+import { userAdd as userAddService } from "../../../services/userAdd/usersAdd";
 
 export const userAdd: IRouteFn = async (socket, data) => {
     try {

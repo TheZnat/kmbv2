@@ -1,7 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
+import { MAX_COUNT_USERS } from "../../const/room/index";
 
-// Тип для ответа
+// добавить статус код
 interface IResult {
     message: string;
 }
@@ -11,12 +12,10 @@ export const checkRoom = async (): Promise<IResult> => {
 
     try {
         let fileData: string;
-        // Пробуем прочитать файл
         try {
             fileData = await fs.readFile(filePath, "utf-8");
         } catch (err) {
             if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-                // Если файла нет, создаем его
                 const initialData = { participants: [] };
                 await fs.writeFile(
                     filePath,
@@ -33,7 +32,7 @@ export const checkRoom = async (): Promise<IResult> => {
         const participants = data.participants || [];
 
         // Проверяем, если комната полна
-        if (participants.length >= 4) {
+        if (participants.length >= MAX_COUNT_USERS) {
             return { message: "Room is full" };
         }
 
@@ -41,6 +40,6 @@ export const checkRoom = async (): Promise<IResult> => {
         return { message: "Room is available" };
     } catch (error) {
         console.error("Error while checking room:", error);
-        return { message: "Error while checking room" }; // Сообщение об ошибке
+        return { message: "Error while checking room" };
     }
 };

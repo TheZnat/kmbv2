@@ -1,4 +1,3 @@
-// SocketContext.tsx
 import React, {
   createContext,
   useContext,
@@ -8,9 +7,8 @@ import React, {
 } from "react";
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL; // Используем переменную окружения
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
 
-// Интерфейс для структуры контекста
 interface SocketContextProps {
   socket: Socket | null;
   emitEvent: (
@@ -25,14 +23,12 @@ interface SocketContextProps {
 
 const SocketContext = createContext<SocketContextProps | undefined>(undefined);
 
-// Провайдер контекста
 export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const socketRef = useRef<Socket | null>(null);
   const [isSocketReady, setSocketReady] = useState(false);
 
-  // Подключение к серверу при монтировании
   useEffect(() => {
     if (!SOCKET_URL) {
       console.error(
@@ -42,7 +38,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     socketRef.current = io(SOCKET_URL, {
-      transports: ["polling"],
+      transports: ["polling", "websocket"],
     });
 
     socketRef.current.on("connect", () => {
@@ -85,7 +81,6 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Хук для доступа к контексту
 export const useSocket = () => {
   const context = useContext(SocketContext);
   return context;

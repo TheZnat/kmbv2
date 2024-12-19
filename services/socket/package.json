@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc --project tsconfig.server.json",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/index.ts ",
+    "json-server": "json-server --watch db.json -p 3002",
     "lint": "eslint ./src/",
     "lint:fix": "eslint ./src/ --fix",
     "lint:watch": "npm run lint --watch"
@@ -16,14 +17,16 @@
   "dependencies": {
     "axios": "0.21.4",
     "dotenv": "10.0.0",
-    "http": "^0.0.1-security",
     "joi": "^17.4.2",
+    "json-server": "^1.0.0-beta.3",
+    "lowdb": "^2.1.0",
     "morgan": "1.10.0",
     "socket.io": "^4.6.1",
     "uuid": "8.3.2",
     "winston": "3.3.3"
   },
   "devDependencies": {
+    "@types/lowdb": "^1.0.15",
     "@types/morgan": "1.9.3",
     "@types/node": "16.4.6",
     "@types/socket.io": "^3.0.2",

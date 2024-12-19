@@ -9,7 +9,11 @@
   --overlay-white-75: rgba(255, 255, 255, 0.75);
   --Primary-Gray-dark: #1f2224;
   --Primary-Black: #181b1d;
+  --Secondary-Purple: #9180ff;
   --Primary-Gray: #2a2e30;
+  --overlay-white-50: rgba(255, 255, 255, 0.5);
+  --overlay-white-25: rgba(255, 255, 255, 0.25);
+  --Secondary-Red: #ff4e4e;
   --font: "Roboto Flex", serif;
 }
 a:active,

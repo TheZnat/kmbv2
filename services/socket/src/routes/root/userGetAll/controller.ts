@@ -1,5 +1,5 @@
 import { IRouteFn } from "../../../../types/socket";
-import { userGet as userGetService } from "../../../services/userGet/userGet";
+import { userGet as userGetService } from "../../../services/userGetAll/userGet";
 
 export const userGet: IRouteFn = async (socket, data) => {
     try {

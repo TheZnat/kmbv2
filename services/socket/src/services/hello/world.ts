@@ -13,6 +13,6 @@ export const world = async ({ name }: IArgs): Promise<IResult> => {
         };
     }
     return {
-        message: 'Hello world!',
+        message: "Hello world!",
     };
 };
