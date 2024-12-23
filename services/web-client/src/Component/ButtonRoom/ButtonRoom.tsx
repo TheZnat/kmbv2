@@ -1,30 +1,25 @@
 import React, { useState } from "react";
 import styles from "./ButtonRoom.module.scss";
 import cn from "classnames";
-
 import video from "../../assets/chat/video-icon.svg";
 import audio from "../../assets/chat/audio-icon.svg";
 import exit from "../../assets/chat/exit-icon.svg";
 import { useSocket } from "../SocketContext/SocketContext";
 import { useNavigate } from "react-router-dom";
-
-const SOCKET_EVENTS = {
-  USER_LEAVE: "user:leave",
-};
+import SOCKET_EVENTS from "../../socket/socketEvents";
 
 interface ServerResponse {
   status: string;
   message: string;
 }
 
-const ButtonRoom = () => {
+const ButtonRoom: React.FC = () => {
   const { emitEvent } = useSocket();
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
   const handlerExitButton = () => {
     const storeUserId = String(localStorage.getItem("id"));
-    console.log("storeUserId:", storeUserId); // Логирование ID из localStorage
     if (!storeUserId) {
       setError("Не найден id пользователя.");
       return;
@@ -32,7 +27,7 @@ const ButtonRoom = () => {
 
     emitEvent(
       SOCKET_EVENTS.USER_LEAVE,
-      { id: storeUserId }, // Обновляем объект с данными для передачи
+      { id: storeUserId },
       (err: any, res: ServerResponse) => {
         if (err) {
           setError(`Произошла ошибка: ${err.message}`);
@@ -40,11 +35,9 @@ const ButtonRoom = () => {
           if (res.status === "error") {
             setError(`${res.message}`);
           } else {
-            // Очищаем данные о пользователе в localStorage
             localStorage.removeItem("id");
             localStorage.setItem("isAuthenticated", "false");
-
-            navigate("/"); // Перенаправление на главную страницу
+            navigate("/");
           }
         }
       }

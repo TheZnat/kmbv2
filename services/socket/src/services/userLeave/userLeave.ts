@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import { Socket } from "socket.io";
 
 interface Participant {
     name: string;
@@ -15,23 +16,24 @@ interface IArgs {
     id: string;
 }
 
-export const userLeave = async ({ id }: IArgs): Promise<IResult> => {
+export const userLeave = async (
+    { id }: IArgs,
+    socket: Socket
+): Promise<IResult> => {
     const filePath = path.join(__dirname, "../../../bd/bd.json");
 
     try {
+        // Чтение данных из файла
         const fileData = await fs.readFile(filePath, "utf-8");
         const data = JSON.parse(fileData);
 
-        console.log("Participants before:", data.participants); // Для отладки
-
-        // Преобразуем ID в строку для надежного сравнения и удаляем пробелы
+        // Фильтрация участников
         const updatedParticipants: Participant[] = data.participants.filter(
             (participant: Participant) =>
                 String(participant.id).trim() !== String(id).trim()
         );
 
-        console.log("Participants after:", updatedParticipants); // Для отладки
-
+        // Если участник не найден
         if (updatedParticipants.length === data.participants.length) {
             return {
                 message: "Participant not found",
@@ -39,11 +41,23 @@ export const userLeave = async ({ id }: IArgs): Promise<IResult> => {
             };
         }
 
-        // Запись обновленного списка участников в файл
+        // Если список участников пуст, очищаем сообщения
+        if (updatedParticipants.length === 0 && data.messages.length > 0) {
+            data.messages = []; // Очищаем сообщения
+        }
+
+        // Записываем обновленные данные в файл
         await fs.writeFile(
             filePath,
-            JSON.stringify({ participants: updatedParticipants }, null, 2)
+            JSON.stringify(
+                { participants: updatedParticipants, messages: data.messages },
+                null,
+                2
+            )
         );
+
+        // Уведомление других клиентов об обновлении списка участников
+        socket.broadcast.emit("participants-updated", { action: "remove", id });
 
         return {
             message: "Participant removed successfully",

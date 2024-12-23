@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { generateRandomString } from "../../utils/string/generateRandomString";
+import { Socket } from "socket.io";
 
 interface IArgs {
     name: string;
@@ -12,7 +13,10 @@ interface IResult {
     id?: string;
 }
 
-export const userAdd = async ({ name }: IArgs): Promise<IResult> => {
+export const userAdd = async (
+    { name }: IArgs,
+    socket: Socket
+): Promise<IResult> => {
     const filePath = path.join(__dirname, "../../../bd/bd.json");
 
     try {
@@ -23,7 +27,7 @@ export const userAdd = async ({ name }: IArgs): Promise<IResult> => {
         } catch {
             await fs.writeFile(
                 filePath,
-                JSON.stringify({ participants: [] }, null, 2)
+                JSON.stringify({ participants: [], messages: [] }, null, 2)
             );
         }
 
@@ -33,17 +37,26 @@ export const userAdd = async ({ name }: IArgs): Promise<IResult> => {
         const participants: { name: string; id: string }[] =
             data.participants || [];
 
-        
         if (participants.some((participant) => participant.name === name)) {
             return {
-                message: "Error if name is already taken",
+                message: "Error: name is already taken",
                 status: "error",
             };
         }
 
         const newParticipant = { name, id: generateRandomString(4) };
         participants.push(newParticipant);
-        await fs.writeFile(filePath, JSON.stringify({ participants }, null, 2));
+
+        await fs.writeFile(
+            filePath,
+            JSON.stringify({ ...data, participants }, null, 2)
+        );
+
+        // Уведомляем остальных участников
+        socket.broadcast.emit("participants-updated", {
+            action: "add",
+            participant: newParticipant,
+        });
 
         return {
             message: "User added successfully",

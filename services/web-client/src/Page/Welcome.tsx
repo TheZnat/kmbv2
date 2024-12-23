@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "../Component/Form/Form";
 import Warning from "../Component/Warning/Warning";
 import { useSocket } from "../Component/SocketContext/SocketContext";
+import SOCKET_EVENTS from "../socket/socketEvents"
 
 interface ServerResponse {
   status: string;
@@ -10,10 +11,6 @@ interface ServerResponse {
   id?: string;
 }
 
-const SOCKET_EVENTS = {
-  CHECK_ROOM: "check:room",
-  USER_ADD: "user:add",
-};
 const Welcome: React.FC = () => {
   const navigate = useNavigate();
   const { emitEvent, isSocketReady } = useSocket();
@@ -65,6 +62,7 @@ const Welcome: React.FC = () => {
         } else {
           localStorage.setItem("isAuthenticated", "true");
           localStorage.setItem("id", `${res.id}`);
+          localStorage.setItem("name", `${name}`);
 
           navigate("/room");
         }

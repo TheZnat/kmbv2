@@ -1,0 +1,64 @@
+.message {
+  border-radius: 12px 12px 12px 4px;
+  background: var(--Primary-Black);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: fit-content;
+  max-width: 239px;
+  height: fit-content;
+}
+
+.myMessage {
+  align-self: flex-end; /* Сообщения пользователя справа */
+}
+
+.otherMessage {
+  align-self: flex-start; /* Сообщения других пользователей слева */
+}
+
+.newMessage {
+  margin-top: 21px;
+}
+
+.name {
+  color: var(--Secondary-Purple);
+  font-family: "Roboto Flex";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.subtitle {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+
+  p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 18px;
+      overflow-wrap: break-word; /* Перенос слов, которые не помещаются */
+      word-wrap: break-word;     /* Для старых браузеров */
+      word-break: break-word;    /* Для более строгого разрыва длинных слов */
+      white-space: normal;       /* Важно: удалите любой запрет на перенос */
+  }
+
+  span {
+      color: var(--overlay-white-50);
+  }
+}
+
+.animate {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}

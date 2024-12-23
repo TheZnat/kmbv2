@@ -3,6 +3,6 @@ import * as controller from "./controller";
 
 const router = new Router();
 
-router.addRoute({ path: "leave" }, controller.userLeave);
+router.addRoute({ path: "get" }, controller.messageGet);
 
-export const userLeave = router;
+export const messageGet = router;

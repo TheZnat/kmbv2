@@ -1,0 +1,82 @@
+.camerasArea {
+    display: flex;
+    flex: 1;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cameraOne {
+    width: clamp(683px, 50vw, 1220px);
+    height: clamp(384px, 40vh, 686px);
+}
+  
+.cameraSecond {
+    width: clamp(576px, 75vw, 683px);
+    height: clamp(324px, 35vh, 384px);
+}
+  
+.cameraThird {
+    width: clamp(508px, 40vw, 576px);
+    height: clamp(286px, 30vh, 324px);
+}
+  
+.cameraFourth {
+    width: clamp(508px, 35vw, 508px);
+    height: clamp(286px, 25vh, 286px);
+}
+  
+
+.camera {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--Primary-Gray-dark);
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.camerasSecondItems{
+    display: flex;
+    gap: 16px;
+}
+
+.camerasThirdItems{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.cameraThirdCenter {
+    grid-column: 1 / -1; 
+    justify-self: center; 
+}
+
+
+
+.cameras {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 12px;
+    grid-row-gap: 14px;
+}
+
+
+
+// .camera {
+//     min-width: 508px;
+//     max-width: 683px;
+//     min-height: 286px;
+//     max-height: 384px;
+//     padding: 10px;
+//     display: flex;
+//     align-items: center;
+//     background-color: var(--Primary-Gray-dark);
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 12px;
+// }

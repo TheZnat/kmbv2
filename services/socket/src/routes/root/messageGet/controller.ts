@@ -1,9 +1,9 @@
 import { IRouteFn } from "../../../../types/socket";
-import { userLeave as userLeaveService } from "../../../services/userLeave/userLeave";
+import { messageGet as messageGetService } from "../../../services/messageGet/messageGet";
 
-export const userLeave: IRouteFn = async (socket, data) => {
+export const messageGet: IRouteFn = async (socket, data) => {
     try {
-        const result = await userLeaveService({ id: data.id }, socket);
+        const result = await messageGetService();
         return result;
     } catch (error) {
         console.log("Error leave user:", error);

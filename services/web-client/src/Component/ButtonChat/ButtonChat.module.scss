@@ -1,0 +1,25 @@
+.buttonChat{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    width: 48px;
+    height: 48px;
+    padding: 9px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    user-select: none;
+}
+
+.buttonChatEnable{
+    position: absolute;
+    right: 374px;
+    bottom: 32px;
+    background: var(--Primary-Blue);
+}
+
+.buttonChatDisabled{
+    right: 43px;
+    bottom: 32px;
+    background: var(--Fora-Main-White);
+}

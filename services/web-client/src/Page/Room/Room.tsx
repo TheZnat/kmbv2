@@ -3,24 +3,28 @@ import { useSocket } from "../../Component/SocketContext/SocketContext";
 import styles from "./Room.module.scss";
 import Chat from "../../Component/Chat/Chat";
 import ButtonRoom from "../../Component/ButtonRoom/ButtonRoom";
+import SOCKET_EVENTS from "../../socket/socketEvents";
+import ButtonChat from "../../Component/ButtonChat/ButtonChat";
+import VideoStreams from "../../Component/VideoStreams/VideoStreams";
 
 interface IParticipant {
   name: string;
   id: string;
 }
 
-
-// нужно чтобы при удаление или добавление новых пользователей
-// users внутри ButtonRoom через  обновлялось состояние и происходил перерендер 
-
 const Room: React.FC = () => {
-  const { emitEvent } = useSocket(); // Получаем сокет
-  const [users, setUsers] = useState<IParticipant[] | null>(null); // Ответ от сервера
-  const [loading, setLoading] = useState(true); // Статус загрузки страницы
-  const [error, setError] = useState(""); // Ошибка, если она есть
+  const { emitEvent, onEvent, offEvent } = useSocket();
+  const [users, setUsers] = useState<IParticipant[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [isChatVisible, setIsChatVisible] = useState(false);
+
+  const toggleChatVisibility = () => {
+    setIsChatVisible(!isChatVisible);
+  };
 
   useEffect(() => {
-    emitEvent("user:getAll", null, (err: any, res: any) => {
+    emitEvent(SOCKET_EVENTS.USER_GET, null, (err: any, res: any) => {
       if (err) {
         setError("Error connecting to server");
         setLoading(false);
@@ -33,7 +37,22 @@ const Room: React.FC = () => {
       }
       setLoading(false);
     });
-  }, [emitEvent]);
+
+    onEvent(SOCKET_EVENTS.PARTICIPANTS_UPDATE, (update) => {
+      if (update.action === "remove") {
+        setUsers(
+          (prevUsers) =>
+            prevUsers?.filter((user) => user.id !== update.id) || []
+        );
+      } else if (update.action === "add") {
+        setUsers((prevUsers) => [...prevUsers, update.participant]);
+      }
+    });
+
+    return () => {
+      offEvent(SOCKET_EVENTS.PARTICIPANTS_UPDATE);
+    };
+  }, [emitEvent, onEvent, offEvent]);
 
   if (loading) {
     return (
@@ -45,21 +64,13 @@ const Room: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.camerasArea}>
-        <div className={styles.cameras}>
-          {users?.map((user) => (
-            <div key={user.id} className={styles.camera}>
-              <p style={{ color: "white" }}>
-                {user.name} (ID: {user.id})
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <Chat />
-
+      <VideoStreams users={users || []} />
+      {isChatVisible && <Chat />}
       <ButtonRoom />
+      <ButtonChat
+        isChatVisible={isChatVisible}
+        toggleChatVisibility={toggleChatVisibility}
+      />
     </div>
   );
 };

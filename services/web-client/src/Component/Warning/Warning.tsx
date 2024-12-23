@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Warning.module.scss";
 import ButtonLogin from "../ButtonLogin/ButtonLogin";
 import { Link } from "react-router-dom";
-import catItemWarning from "../../assets/cat/Property 1=cat 4.svg";
+import catItemWarning from "../../assets/cat/Property4cat.svg";
 import { ButtonAppearence } from "../ButtonLogin/ButtonLogin.props";
 
 const Warning: React.FC = () => {
