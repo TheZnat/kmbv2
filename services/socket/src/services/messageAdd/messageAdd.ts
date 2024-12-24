@@ -1,8 +1,10 @@
-import fs from "fs/promises";
-import path from "path";
 import { generateRandomString } from "../../utils/string/generateRandomString";
 import { Socket } from "socket.io";
 import { formatTime } from "../../utils/function/dataTime";
+import { writeDatabase } from "../../utils/database/writeDatabase";
+import { readDatabase } from "../../utils/database/readDatabase";
+
+// const CHAT_ROOM = "chatRoom"; // Константа для комнаты
 
 interface IArgs {
     name: string;
@@ -26,13 +28,10 @@ interface IResult {
 
 export const messageAdd = async (
     { name, messageText, id }: IArgs,
-    socket: Socket
+    socket: Socket,
 ): Promise<IResult> => {
-    const filePath = path.join(__dirname, "../../../bd/bd.json");
-
     try {
-        const fileData = await fs.readFile(filePath, "utf-8");
-        const data = JSON.parse(fileData);
+        const data = await readDatabase();
         const messages: IMessage[] = data.messages || [];
 
         const newMessage: IMessage = {
@@ -50,9 +49,8 @@ export const messageAdd = async (
             messages,
         };
 
-        await fs.writeFile(filePath, JSON.stringify(updatedData, null, 2));
+        await writeDatabase(updatedData);
 
-        
         socket.emit("messages-updated", {
             action: "add",
             data: newMessage,
@@ -61,6 +59,11 @@ export const messageAdd = async (
             action: "add",
             data: newMessage,
         });
+
+        // socket.to(CHAT_ROOM).emit("messages-updated", {
+        //     action: "add",
+        //     data: newMessage,
+        // });
 
         return {
             message: "Message added successfully",

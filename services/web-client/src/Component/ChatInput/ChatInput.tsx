@@ -24,8 +24,7 @@ const ChatInput: React.FC = () => {
     name: userName,
   });
   const [error, setError] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
-  const divRef = useRef<HTMLDivElement>(null);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,31 +63,14 @@ const ChatInput: React.FC = () => {
     );
   };
 
-  const handleFocus = () => {
-    if (inputRef.current) {
-      inputRef.current.style.background = "var(--Primary-Black)";
-    }
-    if (divRef.current) {
-      divRef.current.style.background = "var(--Primary-Black)";
-      divRef.current.style.border = "none";
-    }
-  };
-
-  const handleBlur = () => {
-    if (inputRef.current) {
-      inputRef.current.style.background = "";
-    }
-    if (divRef.current) {
-      divRef.current.style.background = "";
-      divRef.current.style.border = "";
-    }
-  };
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   return (
     <>
-      <div className={styles.container} ref={divRef}>
+      <div className={`${styles.container} ${isFocused ? styles.focused : ""}`}>
         <input
-          className={styles.input}
+          className={`${styles.input} ${isFocused ? styles.inputFocused : ""}`}
           type="text"
           placeholder="Start typing"
           name="message"
@@ -96,7 +78,6 @@ const ChatInput: React.FC = () => {
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          ref={inputRef}
           onKeyDown={handleKeyDown}
           autoComplete="off"
         />

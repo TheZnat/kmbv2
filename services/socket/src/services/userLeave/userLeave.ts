@@ -1,5 +1,5 @@
-import fs from "fs/promises";
-import path from "path";
+import { readDatabase } from "../../utils/database/readDatabase";
+import { writeDatabase } from "../../utils/database/writeDatabase";
 import { Socket } from "socket.io";
 
 interface Participant {
@@ -20,20 +20,14 @@ export const userLeave = async (
     { id }: IArgs,
     socket: Socket
 ): Promise<IResult> => {
-    const filePath = path.join(__dirname, "../../../bd/bd.json");
-
     try {
-        // Чтение данных из файла
-        const fileData = await fs.readFile(filePath, "utf-8");
-        const data = JSON.parse(fileData);
+        const data = await readDatabase();
 
-        // Фильтрация участников
         const updatedParticipants: Participant[] = data.participants.filter(
             (participant: Participant) =>
                 String(participant.id).trim() !== String(id).trim()
         );
 
-        // Если участник не найден
         if (updatedParticipants.length === data.participants.length) {
             return {
                 message: "Participant not found",
@@ -41,22 +35,15 @@ export const userLeave = async (
             };
         }
 
-        // Если список участников пуст, очищаем сообщения
         if (updatedParticipants.length === 0 && data.messages.length > 0) {
-            data.messages = []; // Очищаем сообщения
+            data.messages = [];
         }
 
-        // Записываем обновленные данные в файл
-        await fs.writeFile(
-            filePath,
-            JSON.stringify(
-                { participants: updatedParticipants, messages: data.messages },
-                null,
-                2
-            )
-        );
+        await writeDatabase({
+            participants: updatedParticipants,
+            messages: data.messages,
+        });
 
-        // Уведомление других клиентов об обновлении списка участников
         socket.broadcast.emit("participants-updated", { action: "remove", id });
 
         return {

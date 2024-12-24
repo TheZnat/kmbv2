@@ -23,7 +23,7 @@
 }
   
 .cameraFourth {
-    width: clamp(508px, 35vw, 508px);
+    width: clamp(308px, 35vw, 508px);
     height: clamp(286px, 25vh, 286px);
 }
   
@@ -43,6 +43,8 @@
     gap: 16px;
 }
 
+
+
 .camerasThirdItems{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -54,29 +56,3 @@
     grid-column: 1 / -1; 
     justify-self: center; 
 }
-
-
-
-.cameras {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 12px;
-    grid-row-gap: 14px;
-}
-
-
-
-// .camera {
-//     min-width: 508px;
-//     max-width: 683px;
-//     min-height: 286px;
-//     max-height: 384px;
-//     padding: 10px;
-//     display: flex;
-//     align-items: center;
-//     background-color: var(--Primary-Gray-dark);
-//     align-items: center;
-//     justify-content: center;
-//     border-radius: 12px;
-// }

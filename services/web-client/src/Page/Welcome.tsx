@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "../Component/Form/Form";
 import Warning from "../Component/Warning/Warning";
 import { useSocket } from "../Component/SocketContext/SocketContext";
-import SOCKET_EVENTS from "../socket/socketEvents"
+import SOCKET_EVENTS from "../socket/socketEvents";
 
 interface ServerResponse {
   status: string;
@@ -13,12 +13,11 @@ interface ServerResponse {
 
 const Welcome: React.FC = () => {
   const navigate = useNavigate();
-  const { emitEvent, isSocketReady } = useSocket();
-  const [name, setName] = useState<string>("");
-  const [response, setResponse] = useState<string>(""); // Ответ от сервера
+  const { emitEvent, isSocketReady, socket } = useSocket();
   const [error, setError] = useState<string>("");
   const [isRoomAvailable, setIsRoomAvailable] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
+  const CHAT_ROOM = "chatRoom";
 
   useEffect(() => {
     if (isSocketReady) {
@@ -38,10 +37,11 @@ const Welcome: React.FC = () => {
               setIsRoomAvailable(true);
             }
           }
-
+          // socket.emit("joinRoom", CHAT_ROOM);
           setLoading(false);
         }
       );
+  
     }
   }, [isSocketReady, emitEvent]);
 
@@ -63,7 +63,6 @@ const Welcome: React.FC = () => {
           localStorage.setItem("isAuthenticated", "true");
           localStorage.setItem("id", `${res.id}`);
           localStorage.setItem("name", `${name}`);
-
           navigate("/room");
         }
       }

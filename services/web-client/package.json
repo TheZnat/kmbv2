@@ -10,25 +10,29 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "classnames": "^2.5.1",
-    "dotenv": "^16.4.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^7.0.2",
-    "socket.io-client": "^4.8.1"
+    "@livekit/components-react": "^2.6.10",
+    "@livekit/components-styles": "^1.1.4",
+    "axios": "^1.7.9",
+    "classnames": "2.5.1",
+    "dotenv": "16.4.7",
+    "livekit-client": "^2.7.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "7.0.2",
+    "socket.io-client": "4.8.1"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "@vitejs/plugin-react": "^4.0.0-beta.0",
-    "eslint": "^8.38.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
-    "sass": "^1.82.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.0"
+    "@types/node": "22.10.2",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@typescript-eslint/eslint-plugin": "5.57.1",
+    "@typescript-eslint/parser": "5.57.1",
+    "@vitejs/plugin-react": "4.0.0-beta.0",
+    "eslint": "8.38.0",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.3.4",
+    "sass": "1.82.0",
+    "typescript": "5.0.2",
+    "vite": "4.3.0"
   }
 }

@@ -23,6 +23,14 @@
     outline: none;
 }
 
+.container.focused {
+    background: var(--Primary-Black);
+  }
+  
+.input.inputFocused {
+    background: var(--Primary-Black);
+}
+
 
 
 .button {

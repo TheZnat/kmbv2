@@ -1,5 +1,4 @@
-import fs from "fs/promises";
-import path from "path";
+import { readDatabase } from "../../utils/database/readDatabase";
 
 interface IParticipant {
     name: string;
@@ -15,9 +14,7 @@ interface IResult {
 
 export const messageGet = async (): Promise<IResult> => {
     try {
-        const filePath = path.join(__dirname, "../../../bd/bd.json");
-        const fileData = await fs.readFile(filePath, "utf-8");
-        const data = JSON.parse(fileData);
+        const data = await readDatabase();
         return {
             message: data.messages,
             status: "success",

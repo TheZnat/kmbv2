@@ -1,20 +1,12 @@
 import { Router } from "../services/socket/router";
-import { helloRouter } from "./root/hello/router";
-import { addUserRouter } from "./root/userAdd/router";
 import { checkRoomRouter } from "./root/room/router";
-import { getUserRouter } from "./root/userGetAll/router";
-import { userLeave } from "./root/userLeave/router";
-import { messageAdd } from "./root/messageAdd/router";
-import { messageGet } from "./root/messageGet/router";
+import {userRouter} from './root/user/router'
+import {messageRouter} from './root/message/router'
 
 const router = new Router();
 
-router.addRouter("hello", helloRouter);
-router.addRouter("user", addUserRouter);
 router.addRouter("check", checkRoomRouter);
-router.addRouter("user", getUserRouter);
-router.addRouter("user", userLeave);
-router.addRouter("message", messageAdd);
-router.addRouter("message", messageGet);
+router.addRouter("user", userRouter);
+router.addRouter("message", messageRouter);
 
 export const rootRouter = router;
